@@ -1,0 +1,103 @@
+
+
+function timeSince(timestamp) {
+
+  timestamp = timestamp / 1000;
+
+  var now = getDate().valueOf() / 1000; // 当前时间戳（秒）  
+
+  // console.log("timestamp = " + timestamp);
+  // console.log("now = " + now );
+
+  // 大概在这个时间范围  小程序的时间戳好像不是很准确
+  var diff = now - timestamp - 3600 * 24 * 59; // 时间差
+  // console.log("diff = " + diff);
+  if(diff < 0) {
+    return '刚刚';
+  }
+  if(diff < 60) {
+    return parseInt(diff) + ' ' + '秒前'
+  }
+
+  
+  var periods = [
+    [parseInt(diff / 31536000), '年前'], // 有bug，科学计数法时有bug
+    [parseInt(diff / 2592000), '个月前'],
+    [parseInt(diff / 18144000), '周前'],
+    [parseInt(diff / 86400), '天前'],
+    [parseInt(diff / 3600), '小时前'],
+    [parseInt(diff / 60), '分钟前'],
+    [parseInt(diff), '秒前'],
+  ];
+
+  for(var i = 0; i < 7; i++) {
+      if (periods[i][0]) {
+        return periods[i].join(' ');
+      }
+  }
+  return '刚刚';
+}
+
+/**
+ * osc专用的时间显示
+ */
+function oscTimeSince(timeStr) {
+  console.log("timeStr = " + timeStr);
+  timeStr = timeStr.replace('-', '/')  
+  var timeStamp = (Date.parse(timeStr)) / 1000;  
+  console.log("到这里啦1 " + timeStamp);
+  console.log(timeStamp);
+  return timeSince(timeStamp)
+}
+
+
+function parseDeviceName(num) {
+//1-WEB、2-WAP、3-Android、4-IOS、5-WP
+  var num = parseInt(num);
+  var device = '';
+  switch (num) {
+    case 5:
+      device = 'WP'
+    case 4:
+      device = 'iPhone';
+      break;
+    case 3:
+      device = 'Android';
+      break
+    case 2:
+      device = 'WAP'
+    case 1:
+    case 0:
+    default:
+      device = ''
+      break;
+
+  } 
+  return device;
+
+}
+
+var joinArray = function (array) {
+  console.log("=======");
+  return array.join(' ')
+}
+
+var previewImg = function (e) {
+  console.log(e);
+  // var current = e.target.dataset;
+  // var urls = (typeof current.srcs != 'undefined') ? current.srcs.split(' ') : [current.src]
+  // wx.previewImage({
+  //   current: current.src,
+  //   urls: urls
+  //   //urls: [current.src]
+  // })
+}  
+
+
+module.exports = {
+  timeSince: timeSince,
+  oscTimeSince: oscTimeSince, // 真机测试会显示为刚刚
+  parseDeviceName: parseDeviceName,
+  joinArray: joinArray,
+  previewImg: previewImg 
+};

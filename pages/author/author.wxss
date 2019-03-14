@@ -1,0 +1,6 @@
+/* pages/author/author.wxss */
+
+.aaa{
+  text-align:center;
+  font-size:16px;
+}

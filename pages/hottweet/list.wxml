@@ -1,0 +1,38 @@
+<!--pages/newtweet/list.wxml-->
+<wxs src="../../utils/util.wxs" module="util"></wxs>
+
+<view class="tweet-container">
+
+  <view wx:for="{{tweets}}" wx:key="index" class="item">
+
+    <navigator class="author avatar-wrap" hover-class='hover-white-link' hover-start-time='100' hover-stay-time='1000' url="/pages/author/author?id={{item.authorId}}">
+      <image bindlongpress='blockUser' data-authorid='{{item.authorId}}' data-author='{{item.author}}' data-avatar="{{item.portrait}}" class='avatar' src="{{item.portrait}}"></image>
+    </navigator>
+
+    <navigator class="tweet-area" hover-class='hover-body-link' hover-start-time='10' hover-stay-time='1000' url="/pages/detail/detail?id={{item.id}}&cnt={{item.commentCount}}" data-index="{{ index }}" bindtap="clickTweet" data-id="{{item.id}}">
+      <view class="tweet-header">
+        <navigator class="author" hover-class='hover-white-link' hover-start-time='100' hover-stay-time='1000' bindtap='userTweetList' url="/pages/author/author?id={{item.authorid}}">{{item.author}}</navigator>
+        <text class="pubdate">{{ util.timeSince(item.pubDate) }}</text>
+      </view>
+
+      <view class="body2" bindtap="clickTweet" data-id="{{item.id}}" 
+       data-index="{{ index }}"  url="/pages/detail/detail?id={{item.id}}">
+        <text>{{item.body}}</text>
+      </view>
+
+      <view wx:if="{{item.imgSmall}}" class="thumb-container">
+        <block wx:for="{{tweets[index].imgSmall}}" wx:for-index="tid" wx:key="idx" wx:for-item="thumb">
+          <image catchtap="previewImg" class='thumb' src="{{thumb}}" data-src="{{tweets[index].imgBig[tid]}}" data-srcs="{{ util.joinArray(item.imgBig) }}"></image>
+        </block>
+      </view>
+
+      <view class="tweet-meta">
+        <view class="reply">
+          <text> {{item.commentCount}} </text>
+          <label>评 </label>
+        </view>
+      </view>
+    </navigator>
+  </view>
+
+</view>

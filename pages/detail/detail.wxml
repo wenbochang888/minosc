@@ -1,0 +1,77 @@
+<wxs src="../../utils/util.wxs" module="util"></wxs>
+
+<view class="container">
+
+  <view>
+    <!-- <navigator class="author avatar-wrap" hover-class='hover-white-link' hover-start-time='100' hover-stay-time='1000' url="/pages/author/author?id={{tweet.id}}">
+      <image bindlongpress='blockUser' data-authorid='{{tweet.authorid}}' data-author='{{tweet.author}}' data-avatar="{{tweet.portrait}}" class='avatar' src="{{tweet.portrait}}"></image>
+    </navigator> -->
+
+    <view class="tweet-area">
+      <!-- <view class="tweet-header">
+        <view class="author" url="/pages/author/author?id={{item.authorid}}">{{tweet.author}}</view>
+        <text wx:if="{{ tweet.pubDate }}" class="pubdate">{{ util.timeSince(tweet.pubDate) }}</text>
+        <text wx:if="{{ tweet.likes }}" class="like">{{ tweet.likes }}赞</text>
+      </view>
+      <template is="entry" data="{{...tweetBodyHtml}}" /> -->
+
+      <!-- <view wx:if="{{tweet.thumbs.length}}" class="thumb-container">
+
+        <block wx:for="{{tweet.thumbs}}" wx:for-index="tid" wx:key="tidx" wx:for-item="thumb">
+          <image catchtap="modalSubmit" class='thumb' src="{{thumb}}" data-src="{{tweet.bigImgs[tid]}}"></image>
+          <image catchtap="previewImg" class='thumb' src="{{thumb}}" data-src="{{tweet.bigImgs[tid]}}" data-srcs="{{ util.joinArray(tweet.bigImgs) }}"></image>
+
+        </block>
+      </view> -->
+
+    </view>
+  </view>
+  <view class="reply-container">
+
+    <view class="reply-header">
+       <label> 评论 ({{commentCount}})
+      </label>
+
+    </view>
+
+
+    <view wx:for="{{comments}}" class="reply-item" wx:key="cidx" wx:for-item="comment">
+
+
+      <!-- <image class='avatar' src="{{comment.commentPortrait}}"></image> -->
+
+      <navigator class="author avatar-wrap" hover-class='hover-white-link' hover-start-time='100' hover-stay-time='1000' url="/pages/author/author?id={{comment.commentAuthorId}}">
+        <image bindlongpress='blockUserComment' data-authorid='{{comment.commentAuthorId}}' data-author='{{comment.commentAuthor}}' data-avatar="{{comment.commentPortrait}}" class='avatar' src="{{comment.commentPortrait}}"></image>
+      </navigator>
+
+
+      <view class="comment-area">
+        <view class="comment-header">
+
+
+
+          <navigator class="author" url="/pages/author/author?id={{comment.commentAuthorId}}">{{comment.commentAuthor}}</navigator>
+
+          <text class="pubdate">{{ util.timeSince(comment.pubDate) }}</text>
+        </view>
+
+        <view class="body2">
+          <text>{{comment.content}}</text>
+        </view>
+
+      </view>
+
+    </view>
+
+    <block wx:if="{{ finishLoadComments }}">
+      <view class="reply-item finish-loaded">
+        <view class="notification ">全部载入完成</view>
+
+      </view>
+    </block>
+
+  </view>
+
+</view>
+<include src="../template/loadmore.wxml" />
+<include src="../template/modal-img.wxml" />

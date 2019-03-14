@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/newtweet/list",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/hottweet/list",
+    "pages/detail/detail",
+    "pages/author/author"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#45B05D",
+    "navigationBarTitleText": "程序员社区",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#707070",
+    "selectedColor": "#45B05D",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/newtweet/list",
+        "text": "最新",
+        "iconPath": "pages/resources/ic_nav_tweet_normal.png",
+        "selectedIconPath": "pages/resources/ic_nav_tweet_actived.png"
+      },
+      {
+        "pagePath": "pages/hottweet/list",
+        "text": "热门",
+        "iconPath": "pages/resources/ic_nav_discover_normal.png",
+        "selectedIconPath": "pages/resources/ic_nav_discover_actived.png"
+      }
+    ]
+  },
+  "debug": true
+}

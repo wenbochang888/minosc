@@ -1,0 +1,77 @@
+<!--pages/myself/myself.wxml-->
+<wxs src="../../utils/util.wxs" module="util"></wxs>
+
+<view class="container">
+  <view class="header">
+
+    <view class="user-avatar-wrap">    
+      
+      <!-- <image class="user-avatar" mode='aspectFit' src="{{authorImg}}" catchtap="modalSubmit" bindlongpress='blockUser' data-authorid='{{author.authorid}}' data-author='{{author.author}}' data-avatar="{{authorImg}}" data-src="{{authorImg}}"></image> -->
+
+          <!-- <navigator class="author avatar-wrap" hover-class='hover-white-link' hover-start-time='100' hover-stay-time='1000' url="/pages/author/author?id={{item.authorId}}">
+      <image bindlongpress='blockUser' data-authorid='{{item.authorId}}' data-author='{{item.author}}' data-avatar="{{authorImg}}" class='avatar' src="{{authorImg}}"></image>
+    </navigator> -->
+
+      <!-- <view wx:else class="user-avatar" style="background:{{author.background}};display:flex;"  bindlongpress='blockUser' data-authorid='{{author.authorid}}' data-author='{{author.author}}' data-avatar="{{author.portrait}}">
+        <view class="author-char" style="margin:auto;">{{author.char}}</view>
+      </view> -->
+    
+
+    </view>    
+
+    <!-- <view class='author'>{{authorName}}</view> -->
+  </view>
+
+
+   <view class="reply-header aaa">
+       <label> {{authorName}}-最近的动弹
+      </label>
+
+    </view>
+
+  <view class="tweets-container">
+    
+    <view wx:for="{{tweets}}" wx:key="index" class="item">
+      <view class="author avatar-wrap" hover-class='hover-white-link' hover-start-time='100' hover-stay-time='1000' url="/pages/author/author?id={{item.authorid}}">
+        <image bindlongpress='blockUser' data-authorid='{{item.authorid}}' data-author='{{item.author}}' data-avatar="{{item.portrait}}" class='avatar' src="{{item.portrait}}" ></image>
+      </view>
+      <navigator class="tweet-area" hover-class='hover-body-link' hover-start-time='10' hover-stay-time='1000'  url="/pages/detail/detail?id={{item.id}}&cnt={{item.commentCount}}" 
+  data-index="{{ index }}"  data-id="{{item.id}}">
+        <view class="tweet-header">
+          <view class="author" hover-class='hover-white-link' hover-start-time='100' hover-stay-time='1000' bindtap='userTweetList' url="/pages/author/author?id={{item.authorid}}">{{item.author}}</view>
+          <text class="pubdate">{{ util.timeSince(item.pubDate) }}</text>
+        </view>
+
+        <view class="body2" bindtap="clickTweet" data-id="{{item.id}}" data-index="{{ index }}" url="/pages/detail/detail?id={{item.id}}">
+        <text>{{item.body}}</text>
+      </view>
+
+        <view wx:if="{{item.imgSmall}}" class="thumb-container">
+        <block wx:for="{{tweets[index].imgSmall}}" wx:for-index="tid" wx:key="idx" wx:for-item="thumb">
+          <image catchtap="previewImg" class='thumb' src="{{thumb}}" data-src="{{tweets[index].imgBig[tid]}}" data-srcs="{{ util.joinArray(item.imgBig) }}"></image>
+        </block>
+      </view>
+
+
+        <view class="tweet-meta">
+          <view class="reply">
+            <text> {{item.commentCount}} </text>
+            <label>评 </label>
+          </view>
+        </view>
+      </navigator>
+    </view>
+    
+  </view>
+
+
+  <block wx:if="{{ finishLoadComments }}">
+      <view class="reply-item finish-loaded">
+        <view class="notification ">全部载入完成</view>
+        
+      </view>
+  </block>
+
+</view>
+<include src="../template/loadmore.wxml" />
+<include src="../template/modal-img.wxml" />
